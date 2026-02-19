@@ -545,6 +545,27 @@ nav ul li a{
   height: 100vh;
 }
 
+.mobile-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-btn {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.header-btn {
+  display: inline-block;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #ff9800, #ffb300);
+  color: #fff;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(255,152,0,0.35);
+}
 
 </style>
 </head>
@@ -566,7 +587,7 @@ nav ul li a{
   <nav>
     <ul>
       <li class="active" onclick="toggleDropdown(this)">
-  <a>Home</a>
+   <a href="index.html">Home </a>
   <div class="dropdown-menu">
     <a href="#">Home 2</a>
   </div>
@@ -580,22 +601,28 @@ nav ul li a{
     </ul>
   </nav>
 </header>
-
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <ul>
     <li onclick="toggleMobileDropdown()">
-      <a>Home ▾</a>
+      <a href="index.html">Home ▾</a>
       <div class="mobile-dropdown" id="mobileDrop">
         <a href="#">Home 2</a>
       </div>
     </li>
+
     <li><a href="#">Events</a></li>
     <li><a href="#">Shop</a></li>
     <li><a href="#">News</a></li>
     <li><a href="#">Submit an Event</a></li>
+
+    <!-- BOOK TICKETS -->
+    <li class="mobile-btn">
+      <a href="login.html" class="header-btn">BOOK TICKETS</a>
+    </li>
   </ul>
 </div>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -899,3 +926,4 @@ document.addEventListener("click", function(e){
 
 </body>
 </html>
+
