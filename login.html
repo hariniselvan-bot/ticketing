@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stackly Tickets – 3D Hero</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  background:linear-gradient(to right,#2e5f66,#1f3b57);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 80px;
+  z-index:1000;
+}
+
+/* LOGO */
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-img{
+  height:38px;
+}
+
+.brand{
+  font-size:20px;
+  font-weight:700;
+}
+
+/* NAV */
+nav{
+  margin-right:40px;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+}
+
+nav ul li{
+  position:relative;
+  margin-left:26px;
+}
+
+nav ul li a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  padding:8px 0;
+}
+
+nav ul li a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:#fff;
+  transform:translateX(-50%);
+  transition:0.3s ease;
+}
+
+nav ul li:hover > a::after,
+nav ul li.active > a::after{
+  width:100%;
+}
+
+/* DROPDOWN */
+nav ul li ul{
+  position:absolute;
+  top:45px;
+  left:0;
+  background:#2e5f66;
+  min-width:160px;
+  display:none;
+}
+
+nav ul li.open > .dropdown-menu{
+  display:block;
+}
+
+
+nav ul li ul li a{
+  padding:12px 15px;
+  display:block;
+}
+
+/* 🍔 HAMBURGER */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+.hamburger span{
+  width:25px;
+  height:3px;
+  background:#fff;
+  margin:4px 0;
+}
+
+/* ================= 3D HERO ================= */
+.scene{
+  width:100%;
+  height:100vh;
+  perspective:1400px;
+  margin-top:70px;
+}
+
+.hero-box{
+  font-size: medium;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  animation:heroTilt 8s ease-in-out infinite;
+}
+
+.hero-face{
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  transform:translateZ(80px);
+  position:relative;
+  transition:background-image 0.6s ease;
+}
+
+.hero-face::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+}
+
+/* HERO CONTENT */
+.hero-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero-small{
+  font-size:14px;
+  letter-spacing:2px;
+  opacity:0.85;
+  margin-bottom:12px;
+}
+
+.hero-dynamic{
+  font-size:64px;
+  letter-spacing:6px;
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hero-content p{
+  margin:22px 0 35px;
+  max-width:600px;
+  opacity:0.9;
+}
+
+.hero-content button{
+  padding:14px 42px;
+  border:none;
+  background:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* 3D LOOP (UNCHANGED) */
+@keyframes heroTilt{
+  0%{transform:rotateX(0deg);}
+  40%{transform:rotateX(12deg);}
+  60%{transform:rotateX(-10deg);}
+  100%{transform:rotateX(0deg);}
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+  nav{
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+    background:#1f3b57;
+    display:none;
+  }
+
+  nav ul{
+    flex-direction:column;
+  }
+
+  nav ul li{
+    width:100%;
+    text-align:center;
+    margin:0;
+  }
+
+  nav ul li a{
+    padding:15px;
+    display:block;
+  }
+
+  .hamburger{
+    display:flex;
+  }
+
+  .hero-box{
+    animation:none;
+  }
+
+  .hero-dynamic{
+    font-size:36px;
+    letter-spacing:3px;
+  }
+}
+</style>
+</head>
+
+<body>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 60px;
+  z-index:1000;
+}
+
+/* LOGO */
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-img{
+  height:34px;
+}
+
+.brand{
+  font-size:20px;
+  font-weight:700;
+}
+
+/* NAV DESKTOP */
+nav ul{
+  list-style:none;
+  display:flex;
+}
+
+nav ul li{
+  position:relative;
+  margin-left:26px;
+}
+
+nav ul li a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  padding:8px 0;
+  cursor:pointer;
+}
+
+/* underline */
+nav ul li a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:#fff;
+  transform:translateX(-50%);
+  transition:0.3s;
+}
+
+nav ul li:hover > a::after,
+nav ul li.active > a::after{
+  width:100%;
+}
+
+/* DROPDOWN (DESKTOP) */
+.dropdown-menu{
+  position:absolute;
+  top:42px;
+  left:0;
+  background:#111;
+  min-width:170px;
+  display:none;
+}
+
+.dropdown-menu a{
+  padding:12px 15px;
+  display:block;
+  font-size:14px;
+}
+
+.dropdown-menu a:hover{
+  background:#222;
+}
+
+/* show dropdown desktop */
+li.show .dropdown-menu{
+  display:block;
+}
+
+/* 🍔 HAMBURGER */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+}
+
+.hamburger span{
+  width:26px;
+  height:3px;
+  background:#fff;
+  margin:4px 0;
+}
+
+/* ================= MOBILE MENU ================= */
+.mobile-nav{
+  position:fixed;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100vh;
+  background:#0b0b0b;
+  transition:0.4s ease;
+  z-index:999;
+  padding-top:90px;
+}
+
+.mobile-nav.active{
+  left:0;
+}
+
+.mobile-nav ul{
+  list-style:none;
+  text-align:center;
+}
+
+.mobile-nav li{
+  border-bottom:1px solid #222;
+}
+
+.mobile-nav li a{
+  display:block;
+  padding:18px;
+  font-size:16px;
+  color:#fff;
+  text-decoration:none;
+}
+
+/* mobile dropdown */
+.mobile-dropdown{
+  display:none;
+  background:#111;
+}
+
+.mobile-dropdown a{
+  font-size:14px;
+  padding:14px;
+}
+
+/* ================= HERO PLACEHOLDER ================= */
+.scene{
+  height:100vh;
+  margin-top:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:url("https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2") center/cover;
+}
+
+/* ================= MOBILE HEADER FIX ================= */
+@media(max-width:900px){
+  header{
+    padding:0 24px; /* equal left & right gap */
+  }
+
+  nav{
+    display:none;
+  }
+
+  .hamburger{
+    display:flex;
+  }
+
+}
+/* ===== HEADER BOOST (ADD ONLY) ===== */
+header{
+  height:85px;                 /* taller header */
+  background:linear-gradient(
+    to right,
+    #030404,
+    #05192e
+  );
+}
+
+.brand{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:#ffffff;
+}
+
+nav ul li a{
+  font-size:15px;
+  font-weight:600;
+  color:#ffffff;
+}
+/* ===== HEADER BUTTON ===== */
+.header-btn{
+  padding:12px 26px;
+  background:#ffcc00;
+  color:#000;
+  font-weight:700;
+  font-size:14px;
+  text-decoration:none;
+  border-radius:30px;
+  margin-left:20px;
+  transition:0.3s ease;
+}
+
+.header-btn:hover{
+  background:#ffd633;
+  transform:translateY(-1px);
+}
+
+/* mobile hide header button */
+@media(max-width:900px){
+  .header-btn{
+    display:none;
+  }
+}
+/* ===== HERO CENTER BOTTOM BUTTON ===== */
+.hero-book-btn{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:14px 44px;
+  background:#ffcc00;
+  color:#000;
+  font-weight:800;
+  font-size:15px;
+  text-decoration:none;
+  border-radius:40px;
+  letter-spacing:1px;
+  transition:0.3s ease;
+}
+
+.hero-book-btn:hover{
+  background:#ffd633;
+  transform:translateX(-50%) translateY(-2px);
+}
+
+/* mobile spacing */
+@media(max-width:900px){
+  .hero-book-btn{
+    bottom:25px;
+    padding:12px 36px;
+  }
+}
+.logo img{
+  height: 70px;        /* increase this */
+  width: auto;
+}
+.navbar .logo img{
+  height: 100px;
+}
+.hero-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px; /* space between text & button */
+}
+.hero-book-btn{
+  margin-top: 10px;
+}
+.hero-content{
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.hero-book-btn{
+  position: static !important;   /* 👈 THIS IS THE KEY */
+  margin-top: 20px;
+}
+.hero-face{
+  height: 100vh;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+  <img src="logo.webp" alt="Stackly Logo">
+</div>
+
+
+  <div class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- DESKTOP NAV -->
+  <nav>
+    <ul>
+      <li class="active" onclick="toggleDropdown(this)">
+  <a>Home</a>
+  <div class="dropdown-menu">
+    <a href="#">Home 2</a>
+  </div>
+      </li>
+      <li><a href="#">Events</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">News</a></li>
+      <li><a href="#">Submit an Event</a></li>
+      <a href="login.html" class="header-btn">BOOK TICKETS</a>
+
+    </ul>
+  </nav>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li onclick="toggleMobileDropdown()">
+      <a>Home ▾</a>
+      <div class="mobile-dropdown" id="mobileDrop">
+        <a href="#">Home 2</a>
+      </div>
+    </li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">News</a></li>
+    <li><a href="#">Submit an Event</a></li>
+  </ul>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auth | Stackly</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(120deg,#000000,#282927,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* floating icons */
+.icon{
+  position:absolute;
+  font-size:28px;
+  opacity:0.25;
+  animation: float 8s infinite ease-in-out;
+}
+.icon:nth-child(1){top:12%;left:15%}
+.icon:nth-child(2){top:70%;left:10%;animation-duration:10s}
+.icon:nth-child(3){top:40%;right:15%}
+.icon:nth-child(4){bottom:10%;right:20%;animation-duration:12s}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-30px)}
+  100%{transform:translateY(0)}
+}
+
+/* auth box */
+.auth-box{
+  width:380px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  padding:45px 35px 40px;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  text-align:center;
+}
+
+/* STACKLY LOGO */
+.logo{
+  margin-bottom:20px;
+}
+
+.logo img{
+  height:70px;
+  filter: drop-shadow(0 0 10px rgba(255,210,0,0.8));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
+}
+
+/* tabs */
+.tabs{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.tabs button{
+  width:48%;
+  padding:10px;
+  border:none;
+  border-radius:30px;
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.tabs button.active{
+  background:#FFD200;
+  color:#000;
+}
+
+/* forms */
+form{
+  display:none;
+}
+
+form.active{
+  display:block;
+}
+
+h2{
+  color:#fff;
+  margin-bottom:8px;
+}
+
+p{
+  color:#cfd8ff;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+}
+
+input::placeholder{
+  color:#ddd;
+}
+
+.main-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  background:#FFD200;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.main-btn:hover{
+  background:#ffb700;
+}
+
+.link{
+  margin-top:12px;
+  font-size:13px;
+  color:#ddd;
+}
+
+.link span{
+  color:#FFD200;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="icon">🎟️</div>
+<div class="icon">🎶</div>
+<div class="icon">✈️</div>
+<div class="icon">🚌</div>
+
+<div class="auth-box">
+
+  <!-- STACKLY LOGO -->
+  <div class="logo">
+    <img src="logo.webp" alt="Stackly Logo">
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button id="loginTab" class="active" onclick="showLogin()">Login</button>
+    <button id="signupTab" onclick="showSignup()">Sign Up</button>
+  </div>
+
+  <!-- LOGIN -->
+  <form id="loginForm" class="active">
+    <h2>Welcome Back</h2>
+    <p>Login to book your tickets</p>
+
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+
+    <button class="main-btn">LOGIN</button>
+
+    <div class="link">
+      <span onclick="showForgot()">Forgot password?</span>
+    </div>
+  </form>
+
+  <!-- SIGN UP -->
+  <form id="signupForm">
+    <h2>Create Account</h2>
+    <p>Start your ticket journey</p>
+
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+
+    <button class="main-btn">REGISTER</button>
+  </form>
+
+  <!-- FORGOT -->
+  <form id="forgotForm">
+    <h2>Forgot Password</h2>
+    <p>We’ll send a reset link</p>
+
+    <input type="email" placeholder="Enter your email" required>
+
+    <button class="main-btn">SEND LINK</button>
+
+    <div class="link">
+      <span onclick="showLogin()">Back to Login</span>
+    </div>
+  </form>
+
+</div>
+
+<script>
+function showLogin(){
+  setActive('loginForm');
+  document.getElementById('loginTab').classList.add('active');
+  document.getElementById('signupTab').classList.remove('active');
+}
+
+function showSignup(){
+  setActive('signupForm');
+  document.getElementById('signupTab').classList.add('active');
+  document.getElementById('loginTab').classList.remove('active');
+}
+
+function showForgot(){
+  setActive('forgotForm');
+  document.getElementById('loginTab').classList.remove('active');
+  document.getElementById('signupTab').classList.remove('active');
+}
+
+function setActive(formId){
+  document.querySelectorAll('form').forEach(f => f.classList.remove('active'));
+  document.getElementById(formId).classList.add('active');
+}
+/* 🍔 MOBILE MENU */
+function toggleMenu(){
+  const menu = document.getElementById("menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+</script>
+<script>
+function toggleMobileMenu(){
+  const mobileNav = document.getElementById("mobileNav");
+  mobileNav.classList.toggle("active");
+}
+</script>
+<script>
+/* ===== DESKTOP DROPDOWN TOGGLE ===== */
+function toggleDropdown(){
+  const drop = document.getElementById("desktopDrop");
+  drop.style.display = drop.style.display === "block" ? "none" : "block";
+}
+
+/* Close dropdown when clicking outside */
+document.addEventListener("click", function(e){
+  const drop = document.getElementById("desktopDrop");
+  const parent = document.querySelector(".dropdown-parent");
+  if (!parent.contains(e.target)) {
+    drop.style.display = "none";
+  }
+});
+</script>
+<script>
+/* ===== MOBILE DROPDOWN TOGGLE ===== */
+function toggleMobileDropdown(){
+  const drop = document.getElementById("mobileDrop");
+  drop.style.display = drop.style.display === "block" ? "none" : "block";
+}
+</script>
+<script>
+function toggleMobileMenu(){
+  document.getElementById("mobileNav").classList.toggle("active");
+}
+</script>
+<script>
+function toggleDropdown(item){
+  item.classList.toggle("open");
+}
+</script>
+<script>
+document.addEventListener("click", function(e){
+  const dropdown = document.querySelector(".dropdown-menu");
+  const parent = document.querySelector("nav ul li");
+
+  if (!parent.contains(e.target)) {
+    parent.classList.remove("open");
+  }
+});
+</script>
+
+
+</body>
+</html>
